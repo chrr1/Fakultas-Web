@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fakultas Sains & Teknologi – Upitra</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+    rel="stylesheet" />
+  <link rel="shortcut icon" href="assets/upitra_logo.png" type="image/x-icon">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue-deep: #0a2e6e;
+      --blue-mid: #1352b5;
+      --blue-bright: #1e78f0;
+      --blue-light: #ddeeff;
+      --blue-pale: #f0f7ff;
+      --accent: #ffcc00;
+
+
+
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+
+      <a class="navbar-brand" href="#">
+        <img src="assets/upitra_logo.png" alt="Logo" style="height: 40px" />
+      </a>
+
+
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav gap-lg-4 text-center">
+          <li class="nav-item">
+            <a class="nav-link active fw-semibold" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-semibold" href="profile.html">Profile</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
+              Prodi
+            </a>
+            <ul class="dropdown-menu text-start">
+              <li><a class="dropdown-item" href="sistem_informasi.html">S1 Sistem Informasi</a></li>
+              <li><a class="dropdown-item" href="informatika.html">S1 Informatika</a></li>
+              <li><a class="dropdown-item" href="software_engineering.html">S1 Software Engineering</a></li>
+            </ul>
+          </li>
+
+
+          <li class="nav-item d-lg-none mt-3">
+            <a href="https://wa.me/628112907500" target="_blank" class="btn btn-success w-100 rounded-pill">
+              <i class="bi bi-whatsapp me-2"></i> WhatsApp
+            </a>
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="d-none d-lg-block">
+        <a href="https://wa.me/628112907500" target="_blank"
+          class="btn btn-success rounded-circle d-flex align-items-center justify-content-center"
+          style="width: 45px; height: 45px">
+          <i class="bi bi-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero d-flex align-items-center text-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 reveal">
+          <h1>Fakultas Sains dan <span>Teknologi</span></h1>
+
+          <a href="profile.html"
+            class="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-2 rounded-pill fw-semibold mt-3">
+            Selengkapnya
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tentang">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-5 reveal">
+          <div class="about-img-stack">
+            <img class="img-main" src="assets/upitra1.jpg" alt="Kampus" />
+            <img class="img-sub" src="assets/mhs1.jpg" alt="Mahasiswa" />
+
+            <div class="about-stat-card">
+              <div class="lbl">Berdiri Pada Tahun</div>
+              <div class="num">2022</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7 about-text reveal">
+          <h2 class="section-title mb-3">Sekilas <span>Pandang</span></h2>
+          <p>
+            Fakultas Sains dan Teknologi Universitas Pignatelli Triputra (FST
+            Upitra) merupakan fakultas baru yang didirikan pada proses alih
+            bentuk atau penggabungan dari STIE Pignatelli Surakarta dan ABA
+            Pignatelli Surakarta, berdasarkan SK Nomor 3884/E1/HK.03.00/2022
+            kedua perguruan tinggi tersebut telah berubah bentuk menjadi
+            Universitas Pignatelli Triputra.
+          </p>
+
+          <a href="profile.html"
+            class="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-2 rounded-pill mt-3">
+            Selengkapnya
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="prodi" class="py-5" style="background: white" style="margin-top: 120px;">
+    <div class="container py-4 reveal">
+      <div class="text-center">
+        <h2 class="section-title">Program Studi <span>Unggulan</span></h2>
+        <div class="divider mx-auto"></div>
+      </div>
+      <div class="row g-4 mt-2">
+        <div class="col-md-4">
+          <div class="prodi-card h-100">
+            <div class="prodi-icon"><i class="bi bi-bar-chart "></i></div>
+
+            <h5>S1 Sistem Informasi</h5>
+            <p>
+              Program studi yang unggul dalam bidang sistem informasi,
+              berorientasi global, menjunjung tinggi nilai-nilai integritas
+              dan bersemangat kebhinekaan.
+            </p>
+            <a href="sistem_informasi.html" class="btn btn-outline-primary btn-sm rounded-pill mt-2">Selengkapnya <i
+                class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4" style="transition-delay: 0.1s">
+          <div class="prodi-card h-100">
+            <div class="prodi-icon"><i class="bi bi-database-fill"></i></div>
+
+            <h5>S1 Informatika</h5>
+            <p>
+              Program studi yang unggul dalam bidang informatika, berorientasi global, menjunjung tinggi nilai-nilai
+              integritas dan bersemangat kebhinekaan.
+            </p>
+            <a href="informatika.html" class="btn btn-outline-primary btn-sm rounded-pill mt-2">Selengkapnya <i
+                class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4" style="transition-delay: 0.2s">
+          <div class="prodi-card h-100">
+            <div class="prodi-icon">
+              <i class="bi bi-code-slash"></i>
+            </div>
+
+            <h5>S1 Software Engineering</h5>
+            <p>
+              Program studi yang unggul dalam bidang rekayasa perangkat lunak, berorientasi global, menjunjung tinggi
+              nilai-nilai integritas dan bersemangat kebhinekaan.
+            </p>
+            <a href="software_engineering.html" class="btn btn-outline-primary btn-sm rounded-pill mt-2">Selengkapnya <i
+                class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="row g-5 align-items-start">
+
+
+        <div class="col-lg-5">
+          <div class="map-container">
+            <iframe src="https://www.google.com/maps?q=Universitas%20Pignatelli%20Triputra&output=embed" width="100%"
+              height="250" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy">
+            </iframe>
+          </div>
+        </div>
+
+
+        <div class="col-lg-7">
+
+          <div class="footer-logo mb-3">
+            <img src="assets/upitra_logo.png" alt="UPITRA" style="height:40px;">
+          </div>
+
+          <p style="font-size: 0.85rem; line-height: 1.75">
+            Universitas Pignatelli Triputra — Mencetak generasi yang
+            berintegritas, berdampak, dan berwawasan global.
+          </p>
+
+          <div class="contact-item">
+            <i class="bi bi-geo-alt-fill"></i>
+            <span>Jl. Duwet No. 1 Karangasem, Laweyan, Surakarta 57145</span>
+          </div>
+
+          <div class="contact-item">
+            <i class="bi bi-clock-fill"></i>
+            <span>Admisi : Senin–Jumat 08:00–17:00</span>
+          </div>
+
+          <div class="contact-item">
+            <i class="bi bi-telephone-fill"></i>
+            <span>0811-290-7500</span>
+          </div>
+
+          <div class="contact-item">
+            <i class="bi bi-envelope-fill"></i>
+            <span>admission@upitra.ac.id</span>
+          </div>
+
+        </div>
+
+      </div>
+      <hr class="mt-5 mb-4" style="opacity: 0.1; border-color: white;">
+      <div class="row">
+        <div class="col-md-12 text-center pb-4">
+          <p class="mb-0" style="font-size: 0.8rem; opacity: 0.7;">
+            &copy; 2026 Adik Christian Purwaningtresno. All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.12 },
+    );
+    reveals.forEach((r) => observer.observe(r));
+
+
+
+    window.addEventListener("scroll", function () {
+      let navbar = document.getElementById("navbar");
+      if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+
+
+  </script>
+</body>
+
+</html>
