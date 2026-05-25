@@ -411,13 +411,19 @@
   tbody tr:hover { background: var(--gray-50); }
 
   .table-thumbnail {
-    width: 42px; height: 42px;
-    border-radius: var(--radius-sm);
-    background: var(--primary-light);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--primary);
-    font-size: 16px;
-  }
+  width: 70px;
+  height: 50px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.table-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
   .news-title-cell { display: flex; align-items: center; gap: 12px; }
   .news-cell-info .title { font-weight: 600; color: var(--gray-800); margin-bottom: 2px; font-size: 13px; }
   .news-cell-info .excerpt { font-size: 11px; color: var(--gray-400); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 260px; }
@@ -471,6 +477,9 @@
     box-shadow: var(--shadow-lg);
     overflow: hidden;
     animation: modalIn 0.22s cubic-bezier(.34,1.56,.64,1);
+
+     max-height: 90vh;
+  overflow-y: auto;
   }
   @keyframes modalIn { from { opacity:0; transform: scale(0.94) translateY(12px); } to { opacity:1; transform: none; } }
   .modal-header {
@@ -587,7 +596,7 @@
   <div class="sidebar-logo">
     <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
     <div>
-      <div class="logo-text">FakAdmin</div>
+      <div class="logo-text">Admin Fakultas</div>
       <div class="logo-sub">Sistem Informasi Fakultas</div>
     </div>
   </div>
@@ -649,10 +658,7 @@
       <span class="topbar-subtitle" id="topbar-sub">Selamat datang kembali, Admin</span>
     </div>
     <div class="topbar-actions">
-      <div class="topbar-search">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" placeholder="Cari sesuatu...">
-      </div>
+      
       <button class="icon-btn">
         <i class="fa-solid fa-bell"></i>
         <span class="notif-dot"></span>
@@ -1055,14 +1061,16 @@
       <button class="modal-close" onclick="closeModal('view')"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <div class="modal-body">
-      <div class="view-img-placeholder"><i class="fa-solid fa-newspaper"></i></div>
+      <div class="view-img-placeholder">
+  <img id="view-image" src="main/assets/olimpiade.jpg" alt="Thumbnail Berita">
+</div>
       <div class="view-meta-row">
         <span class="badge badge-blue">Prestasi</span>
         <span class="badge badge-green"><i class="fa-solid fa-circle" style="font-size:6px"></i> Diterbitkan</span>
         <span style="font-size:12px;color:var(--gray-400)"><i class="fa-regular fa-calendar"></i> 18 Juli 2025</span>
         <span style="font-size:12px;color:var(--gray-400)"><i class="fa-solid fa-eye"></i> 1.2K dilihat</span>
       </div>
-      <div style="font-size:18px;font-weight:700;color:var(--gray-800);margin-bottom:10px;line-height:1.4" id="view-title">Mahasiswa Raih Juara 1 Olimpiade Nasional Matematika</div>
+      <div style="font-size:18px;font-weight:700  ;color:var(--gray-800);margin-bottom:10px;line-height:1.4" id="view-title">Mahasiswa Raih Juara 1 Olimpiade Nasional Matematika</div>
       <div style="font-size:12px;color:var(--gray-400);margin-bottom:14px"><i class="fa-solid fa-user"></i> Oleh Admin Dekan</div>
       <div class="view-divider"></div>
       <div class="view-content" id="view-content">
@@ -1079,16 +1087,35 @@
 </div>
 
 <script>
-  const newsData = [
-    { id:1, icon:'fa-trophy', title:'Mahasiswa Raih Juara 1 Olimpiade Nasional Matematika', excerpt:'Tim mahasiswa berhasil menjuarai ajang bergengsi tingkat nasional...', category:'Prestasi', catClass:'badge-amber', author:'Admin Dekan', date:'18 Jul 2025', status:'Diterbitkan', statusClass:'badge-green', views:'1.2K' },
-    { id:2, icon:'fa-handshake', title:'MoU Kerja Sama dengan Universitas Tokyo Jepang', excerpt:'Penandatanganan MoU untuk program pertukaran mahasiswa dan riset bersama...', category:'Akademik', catClass:'badge-blue', author:'Siti Rahayu', date:'17 Jul 2025', status:'Diterbitkan', statusClass:'badge-green', views:'876' },
-    { id:3, icon:'fa-flask', title:'Seminar Nasional Riset Inovasi Teknologi 2025', excerpt:'Seminar tahunan yang menghadirkan pembicara dari berbagai universitas terkemuka...', category:'Kegiatan', catClass:'badge-blue', author:'Budi Santoso', date:'16 Jul 2025', status:'Draft', statusClass:'badge-amber', views:'—' },
-    { id:4, icon:'fa-users-line', title:'Penerimaan Mahasiswa Baru Jalur Prestasi Dibuka', excerpt:'Pendaftaran jalur prestasi resmi dibuka mulai tanggal 1 Agustus 2025...', category:'Pengumuman', catClass:'badge-gray', author:'Admin Dekan', date:'15 Jul 2025', status:'Diterbitkan', statusClass:'badge-green', views:'3.4K' },
-    { id:5, icon:'fa-book-open', title:'Program Beasiswa S2 untuk Lulusan Terbaik', excerpt:'Fakultas membuka program beasiswa penuh untuk melanjutkan studi S2...', category:'Akademik', catClass:'badge-blue', author:'Siti Rahayu', date:'14 Jul 2025', status:'Diterbitkan', statusClass:'badge-green', views:'2.1K' },
-    { id:6, icon:'fa-star', title:'Dosen Terbaik Nasional 2025 dari Fakultas Kami', excerpt:'Penghargaan bergengsi diraih oleh Prof. Dr. Hendra Wijaya atas dedikasi...', category:'Prestasi', catClass:'badge-amber', author:'Admin Dekan', date:'13 Jul 2025', status:'Diterbitkan', statusClass:'badge-green', views:'1.8K' },
-    { id:7, icon:'fa-building-columns', title:'Renovasi Gedung Kuliah Selesai Tepat Waktu', excerpt:'Proyek renovasi gedung C yang berlangsung selama 8 bulan resmi selesai...', category:'Kegiatan', catClass:'badge-blue', author:'Budi Santoso', date:'12 Jul 2025', status:'Diarsipkan', statusClass:'badge-gray', views:'654' },
-    { id:8, icon:'fa-laptop', title:'Peluncuran Platform E-Learning Fakultas Terbaru', excerpt:'Platform pembelajaran daring generasi baru kini resmi diluncurkan...', category:'Akademik', catClass:'badge-blue', author:'Admin Dekan', date:'10 Jul 2025', status:'Draft', statusClass:'badge-amber', views:'—' },
-  ];
+ const newsData = [
+  {
+    id:1,
+    image:'/main/assets/olimpiade.jpg',
+    title:'Mahasiswa Raih Juara 1 Olimpiade Nasional Matematika',
+    excerpt:'Tim mahasiswa berhasil menjuarai ajang bergengsi tingkat nasional...',
+    category:'Prestasi',
+    catClass:'badge-amber',
+    author:'Admin Dekan',
+    date:'18 Jul 2025',
+    status:'Diterbitkan',
+    statusClass:'badge-green',
+    views:'1.2K'
+  },
+
+  {
+    id:2,
+    image:'/main/assets/univ_jepang.jpg',
+    title:'MoU Kerja Sama dengan Universitas Tokyo Jepang',
+    excerpt:'Penandatanganan MoU untuk program pertukaran mahasiswa...',
+    category:'Akademik',
+    catClass:'badge-blue',
+    author:'Siti Rahayu',
+    date:'17 Jul 2025',
+    status:'Diterbitkan',
+    statusClass:'badge-green',
+    views:'876'
+  }
+];
 
   function renderNews() {
     const tbody = document.getElementById('news-table-body');
@@ -1097,7 +1124,9 @@
         <td><input type="checkbox" class="cb"></td>
         <td>
           <div class="news-title-cell">
-            <div class="table-thumbnail"><i class="fa-solid ${n.icon}"></i></div>
+           <div class="table-thumbnail">
+  <img src="${n.image}" alt="${n.title}">
+</div>
             <div class="news-cell-info">
               <div class="title">${n.title}</div>
               <div class="excerpt">${n.excerpt}</div>
