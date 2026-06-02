@@ -1,10 +1,10 @@
 <?php
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'fakultas_db');
+$host = 'localhost';
+$username = 'root';
+$password = '';
+$database = 'fakultas_db';
 
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$conn = new mysqli($host, $username, $password, $database);
 
 if ($conn->connect_error) {
     die('<div style="font-family:Poppins,sans-serif;padding:40px;color:#e74c3c;background:#fff0f0;border-left:4px solid #e74c3c;margin:20px;border-radius:8px;">

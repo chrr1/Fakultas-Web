@@ -2,19 +2,21 @@
 $page_title = 'Berita Fakultas';
 $current_page = 'berita';
 require_once '../config.php';
-require_once '../dashboard.php';
+
 
 
 if (isset($_GET['hapus']) && is_numeric($_GET['hapus'])) {
     $id = (int)$_GET['hapus'];
     
     $res = $conn->query("SELECT thumbnail FROM berita WHERE id=$id");
-    if ($res) {
-        $row = $res->fetch_assoc();
-        if ($row['thumbnail'] && file_exists(UPLOAD_DIR . $row['thumbnail'])) {
-            unlink(UPLOAD_DIR . $row['thumbnail']);
-        }
+
+if ($res && $res->num_rows > 0) {
+    $row = $res->fetch_assoc();
+
+    if (!empty($row['thumbnail']) && file_exists(UPLOAD_DIR . $row['thumbnail'])) {
+        unlink(UPLOAD_DIR . $row['thumbnail']);
     }
+}
     $conn->query("DELETE FROM berita WHERE id=$id");
     header('Location: index.php?msg=hapus_berhasil');
     exit;
@@ -32,6 +34,8 @@ if (isset($_GET['toggle']) && is_numeric($_GET['toggle'])) {
     header('Location: index.php?msg=status_berhasil');
     exit;
 }
+
+require_once '../dashboard.php';
 
 
 $filter_status = isset($_GET['filter']) ? $_GET['filter'] : '';
@@ -64,13 +68,17 @@ $kat_colors = [
     'Event' => '#10B981', 'Prestasi' => '#EF4444', 'Umum' => '#64748B',
 ];
 
-function buildQuery($params, $base = '') {
+function buildQuery($params) {
     $current = $_GET;
+
     foreach ($params as $k => $v) {
-        if ($v === null) unset($current[$k]);
-        else $current[$k] = $v;
+        if ($v === null) {
+            unset($current[$k]);
+        } else {
+            $current[$k] = $v;
+        }
     }
-    unset($current['page']);
+
     $q = http_build_query($current);
     return 'index.php' . ($q ? '?' . $q : '');
 }

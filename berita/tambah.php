@@ -174,15 +174,12 @@ select.form-control { cursor:pointer; }
                 <div class="form-group">
                     <label class="form-label">Status Publikasi <span class="req">*</span></label>
                     <select name="status" class="form-control">
-                        <option value="Draft" <?= ($_POST['status']??'Draft')==='Draft'?'selected':'' ?>>Draft — Belum dipublikasi</option>
-                        <option value="Terbit" <?= ($_POST['status']??'')==='Terbit'?'selected':'' ?>>Terbit — Langsung tampil</option>
+                        <option value="Draft" <?= ($_POST['status']??'Draft')==='Draft'?'selected':'' ?>>Draft - Belum dipublikasi</option>
+                        <option value="Terbit" <?= ($_POST['status']??'')==='Terbit'?'selected':'' ?>>Terbit - Langsung tampil</option>
                         <option value="Arsip" <?= ($_POST['status']??'')==='Arsip'?'selected':'' ?>>Arsip</option>
                     </select>
                     <div class="form-hint">Draft: hanya terlihat admin. Terbit: tampil di website.</div>
-                    <div style="margin-top:14px;padding:14px;background:var(--primary-light);border-radius:9px;border-left:3px solid var(--primary);">
-                        <div style="font-size:12px;font-weight:600;color:var(--primary);margin-bottom:4px;"><i class="fas fa-lightbulb"></i> Tips</div>
-                        <div style="font-size:12px;color:#3B82F6;line-height:1.6;">Pilih <b>Draft</b> jika berita belum siap. Anda dapat mengubah status kapan saja melalui tombol di daftar berita.</div>
-                    </div>
+                    
                 </div>
             </div>
 

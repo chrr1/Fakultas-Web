@@ -4,11 +4,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Tentukan halaman aktif
 $current_page = isset($current_page) ? $current_page : '';
 $page_title = isset($page_title) ? $page_title : 'Dashboard Admin';
 
-// Hitung statistik untuk sidebar
 require_once __DIR__ . '/config.php';
 
 $total_berita = 0;
@@ -33,41 +31,46 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($page_title) ?> — Admin Fakultas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
             --primary: #2563EB;
-            --primary-dark: #1D4ED8;
-            --primary-light: #EFF6FF;
-            --primary-soft: #DBEAFE;
-            --accent: #0EA5E9;
+            --primary-hover: #1D4ED8;
+            --primary-subtle: #EFF6FF;
             --success: #10B981;
             --warning: #F59E0B;
             --danger: #EF4444;
-            --sidebar-bg: #0F172A;
-            --sidebar-hover: #1E293B;
-            --sidebar-active: rgba(37,99,235,0.15);
-            --sidebar-border: rgba(255,255,255,0.06);
-            --sidebar-text: #94A3B8;
-            --sidebar-text-active: #F8FAFC;
-            --topbar-bg: #FFFFFF;
-            --body-bg: #F1F5F9;
+
+            --sidebar-w: 256px;
+            --topbar-h: 64px;
+
+            --white: #FFFFFF;
+            --gray-50: #F8FAFC;
+            --gray-100: #F1F5F9;
+            --gray-200: #E2E8F0;
+            --gray-300: #CBD5E1;
+            --gray-400: #94A3B8;
+            --gray-500: #64748B;
+            --gray-700: #334155;
+            --gray-900: #0F172A;
+
+            --sidebar-bg: #FFFFFF;
+            --sidebar-border: #F1F5F9;
+            --body-bg: #F8FAFC;
             --card-bg: #FFFFFF;
-            --border: #E2E8F0;
+
             --text-main: #0F172A;
             --text-muted: #64748B;
             --text-light: #94A3B8;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-            --shadow-lg: 0 10px 40px rgba(0,0,0,0.10);
-            --radius: 12px;
+
             --radius-sm: 8px;
-            --sidebar-w: 260px;
-            --topbar-h: 68px;
-            --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+            --radius-md: 10px;
+            --radius-lg: 14px;
+
+            --transition: 0.18s ease;
         }
 
         body {
@@ -76,6 +79,7 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
+            font-size: 14px;
         }
 
         /* ===== SIDEBAR ===== */
@@ -88,139 +92,162 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
             display: flex;
             flex-direction: column;
             z-index: 100;
+            border-right: 1px solid var(--gray-200);
             transition: transform var(--transition);
-            box-shadow: 4px 0 24px rgba(0,0,0,0.15);
         }
 
         .sidebar-brand {
-            padding: 0 24px;
+            padding: 0 20px;
             height: var(--topbar-h);
             display: flex;
             align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid var(--sidebar-border);
+            gap: 10px;
+            border-bottom: 1px solid var(--gray-100);
             flex-shrink: 0;
         }
 
         .brand-icon {
-            width: 38px; height: 38px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 10px;
+            width: 34px; height: 34px;
+            background: var(--primary);
+            border-radius: var(--radius-sm);
             display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
         }
 
-        .brand-icon i { color: #fff; font-size: 17px; }
-
-        .brand-text {
-            display: flex; flex-direction: column;
-        }
+        .brand-icon i { color: #fff; font-size: 15px; }
 
         .brand-name {
-            font-size: 14px;
-            font-weight: 700;
-            color: #F8FAFC;
-            line-height: 1.2;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text-main);
             letter-spacing: -0.2px;
         }
 
         .brand-sub {
-            font-size: 10.5px;
-            color: var(--sidebar-text);
+            font-size: 10px;
+            color: var(--text-light);
             font-weight: 400;
-            letter-spacing: 0.3px;
         }
 
         .sidebar-nav {
             flex: 1;
             overflow-y: auto;
-            padding: 20px 14px;
-            scrollbar-width: thin;
-            scrollbar-color: #334155 transparent;
+            padding: 16px 12px;
+            scrollbar-width: none;
         }
 
-        .sidebar-nav::-webkit-scrollbar { width: 4px; }
-        .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
-        .sidebar-nav::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        .sidebar-nav::-webkit-scrollbar { display: none; }
+
+        .nav-section {
+            margin-bottom: 20px;
+        }
 
         .nav-label {
             font-size: 10px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: #475569;
-            padding: 0 10px;
-            margin: 18px 0 8px;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            padding: 0 8px;
+            margin-bottom: 4px;
         }
-
-        .nav-label:first-child { margin-top: 0; }
 
         .nav-item {
             display: flex;
             align-items: center;
-            gap: 11px;
-            padding: 10px 12px;
+            gap: 10px;
+            padding: 9px 10px;
             border-radius: var(--radius-sm);
-            color: var(--sidebar-text);
+            color: var(--text-muted);
             text-decoration: none;
             font-size: 13.5px;
             font-weight: 500;
             transition: all var(--transition);
-            position: relative;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
 
         .nav-item:hover {
-            background: var(--sidebar-hover);
-            color: var(--sidebar-text-active);
+            background: var(--gray-100);
+            color: var(--text-main);
         }
 
         .nav-item.active {
-            background: var(--sidebar-active);
-            color: #60A5FA;
+            background: var(--primary-subtle);
+            color: var(--primary);
             font-weight: 600;
         }
 
-        .nav-item.active::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 6px; bottom: 6px;
-            width: 3px;
-            background: var(--primary);
-            border-radius: 0 3px 3px 0;
-        }
-
         .nav-item .nav-icon {
-            width: 32px; height: 32px;
+            width: 30px; height: 30px;
             display: flex; align-items: center; justify-content: center;
-            border-radius: 8px;
             font-size: 14px;
             flex-shrink: 0;
-            transition: all var(--transition);
+            color: inherit;
+            opacity: 0.7;
         }
 
-        .nav-item:hover .nav-icon,
-        .nav-item.active .nav-icon {
-            background: rgba(37,99,235,0.2);
-            color: #60A5FA;
+        .nav-item.active .nav-icon,
+        .nav-item:hover .nav-icon {
+            opacity: 1;
         }
 
-        .nav-badge {
-            margin-left: auto;
-            background: var(--primary);
-            color: #fff;
-            font-size: 10px;
+        /* Stats Block */
+        .sidebar-stats {
+            margin: 4px 0;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            padding: 14px;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .stat-cell {
+            text-align: center;
+            padding: 4px 0;
+        }
+
+        .stat-value {
+            font-size: 17px;
             font-weight: 700;
-            padding: 2px 7px;
-            border-radius: 20px;
-            line-height: 1.6;
+            color: var(--text-main);
+            line-height: 1.2;
         }
 
-       
+        .stat-value.green { color: var(--success); }
+        .stat-value.amber { color: var(--warning); }
 
+        .stat-label {
+            font-size: 10px;
+            color: var(--text-light);
+            margin-top: 1px;
+        }
+
+        .stats-divider {
+            height: 1px;
+            background: var(--gray-200);
+            margin-bottom: 10px;
+        }
+
+        .stats-views {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            color: var(--text-muted);
+        }
+
+        .stats-views i { color: var(--primary); font-size: 11px; }
+
+        /* Sidebar Footer */
         .sidebar-footer {
-            padding: 16px 14px;
-            border-top: 1px solid var(--sidebar-border);
+            padding: 12px;
+            border-top: 1px solid var(--gray-100);
             flex-shrink: 0;
         }
 
@@ -228,30 +255,30 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 12px;
+            padding: 9px 10px;
             border-radius: var(--radius-sm);
             cursor: pointer;
             transition: background var(--transition);
         }
 
-        .sidebar-user:hover { background: var(--sidebar-hover); }
+        .sidebar-user:hover { background: var(--gray-100); }
 
         .user-avatar {
-            width: 36px; height: 36px;
+            width: 32px; height: 32px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: var(--primary);
             display: flex; align-items: center; justify-content: center;
             color: #fff;
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 13px;
+            font-weight: 600;
             flex-shrink: 0;
         }
 
+        .user-name { font-size: 12.5px; font-weight: 600; color: var(--text-main); }
+        .user-role { font-size: 11px; color: var(--text-light); }
         .user-info { flex: 1; min-width: 0; }
-        .user-name { font-size: 12.5px; font-weight: 600; color: #F8FAFC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .user-role { font-size: 11px; color: var(--sidebar-text); }
 
-        /* ===== MAIN LAYOUT ===== */
+        /* ===== MAIN WRAPPER ===== */
         .main-wrapper {
             margin-left: var(--sidebar-w);
             flex: 1;
@@ -263,45 +290,42 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
         /* ===== TOPBAR ===== */
         .topbar {
             height: var(--topbar-h);
-            background: var(--topbar-bg);
-            border-bottom: 1px solid var(--border);
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
             display: flex;
             align-items: center;
-            padding: 0 28px;
+            padding: 0 24px;
             position: sticky;
             top: 0;
             z-index: 90;
-            gap: 16px;
-            box-shadow: var(--shadow-sm);
+            gap: 14px;
         }
 
         .topbar-toggle {
             display: none;
-            width: 36px; height: 36px;
+            width: 34px; height: 34px;
             border: none;
             background: none;
             cursor: pointer;
             color: var(--text-muted);
-            border-radius: 8px;
-            font-size: 18px;
+            border-radius: var(--radius-sm);
+            font-size: 17px;
             transition: background var(--transition);
         }
 
-        .topbar-toggle:hover { background: var(--body-bg); }
+        .topbar-toggle:hover { background: var(--gray-100); }
 
-        .topbar-breadcrumb {
-            flex: 1;
-        }
+        .topbar-breadcrumb { flex: 1; }
 
         .breadcrumb-title {
-            font-size: 17px;
-            font-weight: 700;
+            font-size: 15px;
+            font-weight: 600;
             color: var(--text-main);
             line-height: 1;
         }
 
         .breadcrumb-path {
-            font-size: 12px;
+            font-size: 11.5px;
             color: var(--text-light);
             margin-top: 3px;
             display: flex;
@@ -309,80 +333,88 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
             gap: 5px;
         }
 
-        .breadcrumb-path span { color: var(--primary); }
+        .breadcrumb-path .crumb-active { color: var(--primary); }
 
         .topbar-actions {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .topbar-btn {
-            width: 38px; height: 38px;
-            border: 1px solid var(--border);
-            background: var(--card-bg);
+            width: 36px; height: 36px;
+            border: 1px solid var(--gray-200);
+            background: var(--white);
             border-radius: var(--radius-sm);
             display: flex; align-items: center; justify-content: center;
             cursor: pointer;
             color: var(--text-muted);
-            font-size: 15px;
+            font-size: 14px;
             transition: all var(--transition);
-            position: relative;
             text-decoration: none;
+            position: relative;
         }
 
         .topbar-btn:hover {
-            background: var(--primary-light);
-            border-color: var(--primary-soft);
-            color: var(--primary);
-        }
-
-        .topbar-btn .notif-dot {
-            position: absolute;
-            top: 7px; right: 7px;
-            width: 7px; height: 7px;
-            background: var(--danger);
-            border-radius: 50%;
-            border: 1.5px solid #fff;
+            background: var(--gray-100);
+            color: var(--text-main);
+            border-color: var(--gray-300);
         }
 
         .topbar-divider {
-            width: 1px; height: 28px;
-            background: var(--border);
-            margin: 0 4px;
+            width: 1px; height: 24px;
+            background: var(--gray-200);
+            margin: 0 2px;
         }
 
         .topbar-profile {
             display: flex;
             align-items: center;
-            gap: 9px;
+            gap: 8px;
             padding: 5px 12px 5px 5px;
-            border: 1px solid var(--border);
+            border: 1px solid var(--gray-200);
             border-radius: 40px;
             cursor: pointer;
-            background: var(--card-bg);
+            background: var(--white);
             transition: all var(--transition);
             text-decoration: none;
         }
 
-        .topbar-profile:hover { border-color: var(--primary-soft); background: var(--primary-light); }
+        .topbar-profile:hover {
+            background: var(--gray-100);
+            border-color: var(--gray-300);
+        }
 
         .profile-avatar {
-            width: 30px; height: 30px;
+            width: 28px; height: 28px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: var(--primary);
             display: flex; align-items: center; justify-content: center;
             color: #fff;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
         }
 
-        .profile-name { font-size: 12.5px; font-weight: 600; color: var(--text-main); }
+        .profile-name {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        /* Notif dot — hanya titik kecil, tanpa badge angka */
+        .notif-dot {
+            position: absolute;
+            top: 8px; right: 8px;
+            width: 6px; height: 6px;
+            background: var(--danger);
+            border-radius: 50%;
+            border: 1.5px solid var(--white);
+        }
 
         /* ===== PAGE CONTENT ===== */
         .page-content {
             flex: 1;
-            padding: 28px;
+            padding: 24px;
         }
 
         /* ===== OVERLAY MOBILE ===== */
@@ -390,15 +422,14 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(15,23,42,0.3);
             z-index: 99;
+            backdrop-filter: blur(2px);
         }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
-            .sidebar {
-                transform: translateX(calc(-1 * var(--sidebar-w)));
-            }
+            .sidebar { transform: translateX(calc(-1 * var(--sidebar-w))); }
             .sidebar.open { transform: translateX(0); }
             .main-wrapper { margin-left: 0; }
             .topbar-toggle { display: flex; }
@@ -413,67 +444,63 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
 </head>
 <body>
 
-<!-- Sidebar Overlay (Mobile) -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
 <!-- ===== SIDEBAR ===== -->
 <aside class="sidebar" id="sidebar">
-    <!-- Brand -->
     <div class="sidebar-brand">
         <div class="brand-icon">
             <i class="fas fa-university"></i>
         </div>
-        <div class="brand-text">
+        <div>
             <div class="brand-name">Admin Fakultas</div>
             <div class="brand-sub">Panel Manajemen</div>
         </div>
     </div>
 
-    <!-- Navigation -->
     <nav class="sidebar-nav">
-        <div class="nav-label">Menu Utama</div>
-
-        <a href="../dashboard.php" class="nav-item <?= $current_page === 'home' ? 'active' : '' ?>">
-            <span class="nav-icon"><i class="fas fa-home"></i></span>
-            Dashboard
-        </a>
-
-        <div class="nav-label">Konten</div>
-
-        <a href="berita/index.php" class="nav-item <?= $current_page === 'berita' ? 'active' : '' ?>">
-            <span class="nav-icon"><i class="fas fa-newspaper"></i></span>
-            Berita Fakultas
-            <?php if ($berita_draft > 0): ?>
-            <?php endif; ?>
-        </a>
-
-        <div class="nav-label">Statistik</div>
-
-        <!-- Stats Mini -->
-        <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;margin-bottom:4px;">
-            <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
-                <div style="text-align:center;">
-                    <div style="font-size:18px;font-weight:700;color:#F8FAFC;"><?= number_format($total_berita) ?></div>
-                    <div style="font-size:10px;color:#64748B;">Total</div>
-                </div>
-                <div style="text-align:center;">
-                    <div style="font-size:18px;font-weight:700;color:#10B981;"><?= number_format($berita_terbit) ?></div>
-                    <div style="font-size:10px;color:#64748B;">Terbit</div>
-                </div>
-                <div style="text-align:center;">
-                    <div style="font-size:18px;font-weight:700;color:#F59E0B;"><?= number_format($berita_draft) ?></div>
-                    <div style="font-size:10px;color:#64748B;">Draft</div>
-                </div>
-            </div>
-            <div style="display:flex;align-items:center;gap:6px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);">
-                <i class="fas fa-eye" style="color:#60A5FA;font-size:12px;"></i>
-                <span style="font-size:11.5px;color:#94A3B8;"><?= number_format($total_views) ?> total tampilan</span>
-            </div>
+        <div class="nav-section">
+            <div class="nav-label">Menu Utama</div>
+            <a href="../dashboard.php" class="nav-item <?= $current_page === 'home' ? 'active' : '' ?>">
+                <span class="nav-icon"><i class="fas fa-home"></i></span>
+                Dashboard
+            </a>
         </div>
 
+        <div class="nav-section">
+            <div class="nav-label">Konten</div>
+            <a href="berita/index.php" class="nav-item <?= $current_page === 'berita' ? 'active' : '' ?>">
+                <span class="nav-icon"><i class="fas fa-newspaper"></i></span>
+                Berita Fakultas
+            </a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-label">Statistik</div>
+            <div class="sidebar-stats">
+                <div class="stats-row">
+                    <div class="stat-cell">
+                        <div class="stat-value"><?= number_format($total_berita) ?></div>
+                        <div class="stat-label">Total</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-value green"><?= number_format($berita_terbit) ?></div>
+                        <div class="stat-label">Terbit</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-value amber"><?= number_format($berita_draft) ?></div>
+                        <div class="stat-label">Draft</div>
+                    </div>
+                </div>
+                <div class="stats-divider"></div>
+                <div class="stats-views">
+                    <i class="fas fa-eye"></i>
+                    <span><?= number_format($total_views) ?> total tampilan</span>
+                </div>
+            </div>
+        </div>
     </nav>
 
-    <!-- Footer User -->
     <div class="sidebar-footer">
         <div class="sidebar-user">
             <div class="user-avatar">A</div>
@@ -481,14 +508,13 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
                 <div class="user-name">Administrator</div>
                 <div class="user-role">Super Admin</div>
             </div>
-            <i class="fas fa-ellipsis-v" style="color:#475569;font-size:13px;"></i>
+            <i class="fas fa-ellipsis-v" style="color:var(--text-light);font-size:12px;"></i>
         </div>
     </div>
 </aside>
 
 <!-- ===== MAIN CONTENT ===== -->
 <div class="main-wrapper">
-    <!-- Topbar -->
     <header class="topbar">
         <button class="topbar-toggle" onclick="toggleSidebar()">
             <i class="fas fa-bars"></i>
@@ -497,10 +523,10 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
         <div class="topbar-breadcrumb">
             <div class="breadcrumb-title"><?= htmlspecialchars($page_title) ?></div>
             <div class="breadcrumb-path">
-                <i class="fas fa-house" style="font-size:10px;"></i>
+                <i class="fas fa-house" style="font-size:9px;"></i>
                 Admin
-                <i class="fas fa-chevron-right" style="font-size:9px;color:#CBD5E1;"></i>
-                <span><?= htmlspecialchars($page_title) ?></span>
+                <i class="fas fa-chevron-right" style="font-size:8px;color:var(--gray-300);"></i>
+                <span class="crumb-active"><?= htmlspecialchars($page_title) ?></span>
             </div>
         </div>
 
@@ -522,5 +548,11 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
         </div>
     </header>
 
-    <!-- Page Content Start -->
     <main class="page-content">
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('show');
+        }
+    </script>
