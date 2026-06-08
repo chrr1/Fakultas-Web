@@ -4,7 +4,7 @@ $current_page = 'home';
 require_once 'config.php';
 require_once 'dashboard.php';
 
-// Statistik untuk cards
+
 $stats = [];
 $r = $conn->query("SELECT COUNT(*) as total, SUM(dilihat) as views FROM berita");
 if ($r) { $row = $r->fetch_assoc(); $stats['total'] = $row['total']; $stats['views'] = number_format($row['views'] ?? 0); }
@@ -338,9 +338,7 @@ function statusBadge($status) {
         <h2>Selamat Datang, Administrator! 👋</h2>
         <p>Kelola konten dan berita Fakultas dari panel administrasi ini.</p>
     </div>
-    <a href="berita/tambah.php" class="welcome-btn">
-        <i class="fas fa-plus"></i> Tambah Berita Baru
-    </a>
+    
 </div>
 
 <!-- Stats Cards -->

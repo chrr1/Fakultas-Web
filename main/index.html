@@ -31,6 +31,23 @@
       box-sizing: border-box;
       font-family: "Poppins", sans-serif;
     }
+
+    .hero {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("assets/upitra1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 1s ease-in-out;
+
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-attachment: fixed;
+  position: relative;
+  overflow: hidden;
+}
   </style>
 </head>
 
@@ -279,6 +296,23 @@
         navbar.classList.remove("scrolled");
       }
     });
+
+    const hero = document.querySelector(".hero");
+
+const backgrounds = [
+  "assets/upitra1.jpg",
+  "assets/upt1.jpg"
+];
+
+let current = 0;
+
+setInterval(() => {
+  current = (current + 1) % backgrounds.length;
+
+  hero.style.backgroundImage =
+    `linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+     url('${backgrounds[current]}')`;
+}, 5000);
 
 
   </script>
