@@ -263,9 +263,7 @@ require_once '../dashboard.php';
         <a href="edit.php?id=<?= $id ?>" style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;text-decoration:none;color:#92400E;font-size:13px;font-weight:600;">
             <i class="fas fa-pen"></i> Edit
         </a>
-        <a href="index.php?toggle=<?= $id ?>" style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--primary-light);border:1px solid var(--primary-soft);border-radius:8px;text-decoration:none;color:var(--primary);font-size:13px;font-weight:600;">
-            <i class="fas fa-toggle-on"></i> Toggle Status
-        </a>
+        
     </div>
 </div>
 

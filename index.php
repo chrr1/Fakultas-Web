@@ -70,27 +70,14 @@ function statusBadge($status) {
     display: flex;
     align-items: flex-start;
     gap: 16px;
-    transition: box-shadow var(--transition), transform var(--transition);
-    position: relative;
-    overflow: hidden;
+    transition: box-shadow var(--transition);
 }
 
 .stat-card:hover {
     box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
 }
 
-.stat-card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-}
 
-.stat-card.blue::after { background: linear-gradient(90deg, #2563EB, #0EA5E9); }
-.stat-card.green::after { background: linear-gradient(90deg, #10B981, #34D399); }
-.stat-card.yellow::after { background: linear-gradient(90deg, #F59E0B, #FCD34D); }
-.stat-card.purple::after { background: linear-gradient(90deg, #7C3AED, #A78BFA); }
 
 .stat-icon {
     width: 48px; height: 48px;
@@ -98,6 +85,11 @@ function statusBadge($status) {
     display: flex; align-items: center; justify-content: center;
     font-size: 20px;
     flex-shrink: 0;
+}
+
+.table-responsive{
+    width:100%;
+    overflow-x:auto;
 }
 
 .stat-icon.blue { background: #EFF6FF; color: #2563EB; }
@@ -115,6 +107,10 @@ function statusBadge($status) {
     grid-template-columns: 1fr 340px;
     gap: 20px;
     margin-bottom: 20px;
+}
+
+.dashboard-grid > div:last-child{
+    min-width: 0;
 }
 
 .card {
@@ -195,7 +191,17 @@ function statusBadge($status) {
 }
 
 .news-title-cell { display: flex; align-items: center; gap: 11px; }
-.news-title-text { font-weight: 600; font-size: 13px; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 260px; }
+.news-title-text {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-main);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 100%;
+}
 .news-date { font-size: 11px; color: var(--text-light); margin-top: 2px; }
 
 .kat-badge {
@@ -294,6 +300,36 @@ function statusBadge($status) {
     .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
     .welcome-banner { flex-direction: column; gap: 16px; align-items: flex-start; }
 }
+@media (max-width: 480px){
+    .stat-card{
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+@media (max-width: 640px){
+
+    .welcome-banner{
+        text-align: center;
+        align-items: center;
+    }
+
+    .welcome-text{
+        width: 100%;
+    }
+
+    .welcome-btn{
+        max-width: 300px;
+    }
+}
+    .stat-info{
+        min-width: 0;
+    }
+
+    .stat-value{
+        font-size: 22px;
+    }
+}
 </style>
 
 <!-- Welcome Banner -->
@@ -351,13 +387,16 @@ function statusBadge($status) {
             <div class="card-title"><i class="fas fa-clock-rotate-left"></i> Berita Terbaru</div>
             <a href="berita/index.php" class="card-action">Lihat Semua <i class="fas fa-arrow-right" style="font-size:10px;"></i></a>
         </div>
+        <div class="table-responsive">
+
+        
         <table class="news-table">
             <thead>
                 <tr>
                     <th>BERITA</th>
                     <th>KATEGORI</th>
                     <th>STATUS</th>
-                    <th>VIEWS</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -381,7 +420,7 @@ function statusBadge($status) {
                         <span class="kat-badge" style="background:<?= $c ?>18;color:<?= $c ?>;"><?= htmlspecialchars($b['kategori']) ?></span>
                     </td>
                     <td><?= statusBadge($b['status']) ?></td>
-                    <td style="font-weight:600;color:var(--text-muted);font-size:13px;"><?= number_format($b['dilihat']) ?></td>
+                    
                 </tr>
                 <?php endforeach; ?>
                 <?php if (empty($berita_terbaru)): ?>
@@ -391,6 +430,7 @@ function statusBadge($status) {
                 <?php endif; ?>
             </tbody>
         </table>
+        </div>
     </div>
 
     <!-- Sidebar Kanan -->
@@ -414,47 +454,10 @@ function statusBadge($status) {
             </div>
         </div>
 
-        <!-- Aksi Cepat -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title"><i class="fas fa-bolt"></i> Aksi Cepat</div>
-            </div>
-            <div style="padding:14px;display:flex;flex-direction:column;gap:8px;">
-                <a href="berita/tambah.php" style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--primary-light);border-radius:8px;text-decoration:none;color:var(--primary);font-size:13px;font-weight:600;transition:background 0.2s;">
-                    <i class="fas fa-plus-circle"></i> Tambah Berita Baru
-                </a>
-                <a href="berita/index.php?filter=Draft" style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#FFFBEB;border-radius:8px;text-decoration:none;color:#92400E;font-size:13px;font-weight:600;transition:background 0.2s;">
-                    <i class="fas fa-edit"></i> Lihat Draft (<?= $stats['draft'] ?? 0 ?>)
-                </a>
-                <a href="berita/index.php" style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#F0FDF4;border-radius:8px;text-decoration:none;color:#065F46;font-size:13px;font-weight:600;transition:background 0.2s;">
-                    <i class="fas fa-list"></i> Kelola Semua Berita
-                </a>
-            </div>
-        </div>
+       
     </div>
 </div>
 
-<!-- Distribusi Kategori -->
-<?php if (!empty($kategori_stats)): ?>
-<div class="card kategori-section">
-    <div class="card-header">
-        <div class="card-title"><i class="fas fa-tags"></i> Distribusi Kategori Berita</div>
-    </div>
-    <div class="kategori-grid">
-        <?php foreach ($kategori_stats as $k): ?>
-        <?php $c = $kat_colors[$k['kategori']] ?? '#64748B'; $pct = round($k['jumlah'] / $max_kat * 100); ?>
-        <div class="kat-bar-item">
-            <div class="kat-bar-label">
-                <span class="kat-bar-name"><?= htmlspecialchars($k['kategori']) ?></span>
-                <span class="kat-bar-count"><?= $k['jumlah'] ?> berita</span>
-            </div>
-            <div class="kat-bar-track">
-                <div class="kat-bar-fill" style="width:<?= $pct ?>%;background:<?= $c ?>;"></div>
-            </div>
-        </div>
-        <?php endforeach; ?>
-    </div>
-</div>
-<?php endif; ?>
+
 
 <?php require_once 'dashboard_footer.php'; ?>

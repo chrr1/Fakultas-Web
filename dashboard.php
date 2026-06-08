@@ -86,10 +86,11 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
         .sidebar {
             width: var(--sidebar-w);
             background: var(--sidebar-bg);
-            height: 100vh;
+            height: auto;
             position: fixed;
             top: 0; left: 0;
             display: flex;
+            bottom: 0;
             flex-direction: column;
             z-index: 100;
             border-right: 1px solid var(--gray-200);
@@ -436,6 +437,34 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
             .sidebar-overlay.show { display: block; }
         }
 
+        @media (max-width: 480px){
+
+    .topbar{
+        gap:8px;
+    }
+
+    .profile-name{
+        display:none;
+    }
+
+    .topbar-divider{
+        display:none;
+    }
+
+    .topbar-btn{
+        width:32px;
+        height:32px;
+    }
+
+    .breadcrumb-title{
+        font-size:14px;
+    }
+
+    .breadcrumb-path{
+        font-size:10px;
+    }
+}
+
         @media (max-width: 640px) {
             .page-content { padding: 16px; }
             .topbar { padding: 0 16px; }
@@ -450,7 +479,7 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
         <div class="brand-icon">
-            <i class="fas fa-university"></i>
+            <i class="fas fa-user"></i>
         </div>
         <div>
             <div class="brand-name">Admin Fakultas</div>
@@ -461,7 +490,7 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
     <nav class="sidebar-nav">
         <div class="nav-section">
             <div class="nav-label">Menu Utama</div>
-            <a href="../dashboard.php" class="nav-item <?= $current_page === 'home' ? 'active' : '' ?>">
+            <a href="../index.php" class="nav-item <?= $current_page === 'home' ? 'active' : '' ?>">
                 <span class="nav-icon"><i class="fas fa-home"></i></span>
                 Dashboard
             </a>
@@ -475,7 +504,7 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
             </a>
         </div>
 
-        <div class="nav-section">
+        <!-- <div class="nav-section">
             <div class="nav-label">Statistik</div>
             <div class="sidebar-stats">
                 <div class="stats-row">
@@ -498,19 +527,10 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
                     <span><?= number_format($total_views) ?> total tampilan</span>
                 </div>
             </div>
-        </div>
+        </div> -->
     </nav>
 
-    <div class="sidebar-footer">
-        <div class="sidebar-user">
-            <div class="user-avatar">A</div>
-            <div class="user-info">
-                <div class="user-name">Administrator</div>
-                <div class="user-role">Super Admin</div>
-            </div>
-            <i class="fas fa-ellipsis-v" style="color:var(--text-light);font-size:12px;"></i>
-        </div>
-    </div>
+    
 </aside>
 
 <!-- ===== MAIN CONTENT ===== -->

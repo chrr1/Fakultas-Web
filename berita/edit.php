@@ -235,7 +235,7 @@ textarea.form-control {
 .alert-danger {
     background: #fef2f2;
     color: #991b1b;
-    border-left: 4px solid #ef4444;
+    
 }
 
 .alert ul {
@@ -452,7 +452,7 @@ textarea.form-control {
                     <div style="font-size:12px;color:var(--text-light);margin-top:8px;">
                         Status saat ini: <strong style="color:var(--text-main);"><?= $berita['status'] ?></strong>
                     </div>
-                    <div style="margin-top:14px;padding:14px;background:#F0FDF4;border-radius:9px;border-left:3px solid #10B981;">
+                    <div style="margin-top:14px;padding:14px;background:#F0FDF4;border-radius:9px;">
                         <div style="font-size:12px;font-weight:600;color:#065F46;margin-bottom:4px;"><i class="fas fa-shield-check"></i> Perhatian</div>
                         <div style="font-size:12px;color:#065F46;line-height:1.6;">Mengubah status dari <b>Terbit</b> ke <b>Draft</b> akan menyembunyikan berita dari publik.</div>
                     </div>
