@@ -1,5 +1,5 @@
 <?php
-// dashboard.php - Sidebar & Layout Utama
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -42,6 +42,12 @@ if ($res3) $berita_draft = $res3->fetch_assoc()['cnt'];
     margin-bottom: 22px;
     gap: 16px;
     flex-wrap: wrap;
+}
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    color: black;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
 }
 
 .page-header-left h1 {
@@ -1632,32 +1638,10 @@ textarea.form-control {
             </a>
 
              
+             
         </div>
 
-        <!-- <div class="nav-section">
-            <div class="nav-label">Statistik</div>
-            <div class="sidebar-stats">
-                <div class="stats-row">
-                    <div class="stat-cell">
-                        <div class="stat-value"><?= number_format($total_berita) ?></div>
-                        <div class="stat-label">Total</div>
-                    </div>
-                    <div class="stat-cell">
-                        <div class="stat-value green"><?= number_format($berita_terbit) ?></div>
-                        <div class="stat-label">Terbit</div>
-                    </div>
-                    <div class="stat-cell">
-                        <div class="stat-value amber"><?= number_format($berita_draft) ?></div>
-                        <div class="stat-label">Draft</div>
-                    </div>
-                </div>
-                <div class="stats-divider"></div>
-                <div class="stats-views">
-                    <i class="fas fa-eye"></i>
-                    <span><?= number_format($total_views) ?> total tampilan</span>
-                </div>
-            </div>
-        </div> -->
+      
     </nav>
 
     

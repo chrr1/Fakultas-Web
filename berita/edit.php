@@ -133,69 +133,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
 
-        if ($judul !== $berita['judul']) {
+    $stmt = $conn->prepare("
+        UPDATE berita
+        SET
+            judul = ?,
+            konten = ?,
+            thumbnail = ?,
+            kategori = ?,
+            penulis = ?,
+            status = ?
+        WHERE id = ?
+    ");
 
-            $slug = strtolower(
-                preg_replace('/[^a-z0-9]+/i', '-', $judul)
-            );
+    $stmt->bind_param(
+        'ssssssi',
+        $judul,
+        $konten,
+        $thumbnail,
+        $kategori,
+        $penulis,
+        $status,
+        $id
+    );
 
-            $slug = trim($slug, '-');
+    if ($stmt->execute()) {
 
-            $slug_ori = $slug;
-            $i = 1;
+        header('Location: index.php?msg=edit_berhasil');
+        exit;
 
-            while (
-                $conn->query("
-                    SELECT id
-                    FROM berita
-                    WHERE slug='$slug'
-                    AND id!=$id
-                    LIMIT 1
-                ")->num_rows > 0
-            ) {
-                $slug = $slug_ori . '-' . $i++;
-            }
+    } else {
 
-        } else {
-
-            $slug = $berita['slug'];
-        }
-
-        $stmt = $conn->prepare("
-            UPDATE berita
-            SET
-                judul = ?,
-                slug = ?,
-                konten = ?,
-                thumbnail = ?,
-                kategori = ?,
-                penulis = ?,
-                status = ?
-            WHERE id = ?
-        ");
-
-        $stmt->bind_param(
-            'sssssssi',
-            $judul,
-            $slug,
-            $konten,
-            $thumbnail,
-            $kategori,
-            $penulis,
-            $status,
-            $id
-        );
-
-        if ($stmt->execute()) {
-
-            header('Location: index.php?msg=edit_berhasil');
-            exit;
-
-        } else {
-
-            $errors[] = 'Gagal memperbarui data: ' . $conn->error;
-        }
+        $errors[] = 'Gagal memperbarui data: ' . $conn->error;
     }
+}
 
     $berita = array_merge($berita, [
         'judul'     => $judul,

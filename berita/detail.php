@@ -88,12 +88,7 @@ require_once '../dashboard.php';
                     <span class="info-label">ID</span>
                     <span class="info-value">#<?= $berita['id'] ?></span>
                 </div>
-                <div class="info-row">
-    <span class="info-label">Slug</span>
-    <span class="info-value" style="font-size:12px;word-break:break-all;color:var(--text-muted);">
-        <?= htmlspecialchars($berita['slug']) ?>
-    </span>
-</div>
+                
                 <div class="info-row">
                     <span class="info-label">Status</span>
                     <span class="info-value">

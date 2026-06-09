@@ -57,6 +57,7 @@ if (isset($_GET['toggle']) && is_numeric($_GET['toggle'])) {
 require_once '../dashboard.php';
 
 
+
 $filter_status = isset($_GET['filter'])
     ? $_GET['filter']
     : '';
@@ -179,6 +180,16 @@ function buildQuery($params)
     return 'index.php' . ($q ? '?' . $q : '');
 }
 ?>
+<?php if (isset($_GET['msg'])): ?>
+<div class="alert alert-success">
+    <?=
+        $_GET['msg'] == 'tambah_berhasil' ? 'Berita berhasil ditambahkan.' :
+        ($_GET['msg'] == 'edit_berhasil' ? 'Berita berhasil diperbarui.' :
+        ($_GET['msg'] == 'hapus_berhasil' ? 'Berita berhasil dihapus.' :
+        ($_GET['msg'] == 'status_berhasil' ? 'Status berita berhasil diubah.' : '')))
+    ?>
+</div>
+<?php endif; ?>
 
 
 <div class="page-header">
@@ -186,11 +197,22 @@ function buildQuery($params)
         <h1>Berita Fakultas</h1>
         <p>Kelola semua berita dan artikel yang dipublikasikan oleh Fakultas</p>
     </div>
-    <a href="tambah.php" 
-   class="btn btn-primary"
-   style="width:auto; display:inline-flex; align-items:center; gap:8px; padding:10px 16px;">
-    <i class="fas fa-plus"></i> Tambah Berita
-</a>
+
+    <div style="display:flex; gap:10px; align-items:center;">
+        
+        <a href="../main/index.html" 
+           target="_blank"
+           style="width:auto; display:inline-flex; align-items:center; gap:8px; padding:10px 16px; background:#10B981; color:#fff; text-decoration:none; border-radius:8px; font-weight:500;">
+            <i class="fas fa-globe"></i> Lihat Website
+        </a>
+
+        <a href="tambah.php" 
+           class="btn btn-primary"
+           style="width:auto; display:inline-flex; align-items:center; gap:8px; padding:10px 16px;">
+            <i class="fas fa-plus"></i> Tambah Berita
+        </a>
+
+    </div>
 </div>
 
 

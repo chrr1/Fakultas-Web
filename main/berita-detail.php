@@ -295,7 +295,7 @@ function katMeta($kat, $kat_meta) {
 .share-btn.tw  { background: #1DA1F2; }
 .share-btn.copy { background: #64748b; cursor: pointer; }
 
-/* Back button */
+
 .back-btn {
     display: inline-flex;
     align-items: center;
@@ -315,7 +315,7 @@ function katMeta($kat, $kat_meta) {
     color: #fff;
 }
 
-/* ---- Related News ---- */
+
 .related-section {
     margin-top: 48px;
     padding-top: 32px;
@@ -396,7 +396,7 @@ function katMeta($kat, $kat_meta) {
     margin-top: auto;
 }
 
-/* ===== SIDEBAR (reuse from berita.css pattern) ===== */
+
 .detail-sidebar .sidebar-card {
     background: #fff;
     border-radius: 16px;
@@ -449,7 +449,7 @@ function katMeta($kat, $kat_meta) {
 }
 .populer-views { font-size: 11px; color: #94a3b8; }
 
-/* Toast notification */
+
 .toast-copy {
     position: fixed;
     bottom: 30px;
@@ -474,7 +474,7 @@ function katMeta($kat, $kat_meta) {
 </head>
 <body>
 
-<!-- ===== NAVBAR (sama dengan berita.php) ===== -->
+
 <nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#">
@@ -513,18 +513,18 @@ function katMeta($kat, $kat_meta) {
     </div>
 </nav>
 
-<!-- ===== MAIN WRAPPER ===== -->
+
 <div class="detail-wrapper">
 
-    <!-- ===== KONTEN UTAMA ===== -->
+    
     <main>
 
-        <!-- Tombol Kembali -->
+        
         <a href="berita.php" class="back-btn">
             <i class="fas fa-arrow-left"></i> Kembali ke Berita
         </a>
 
-        <!-- Breadcrumb -->
+       
         <div class="breadcrumb-bar">
             <a href="index.html"><i class="fas fa-home"></i> Home</a>
             <span class="sep">/</span>
@@ -535,10 +535,10 @@ function katMeta($kat, $kat_meta) {
             <span class="current"><?= htmlspecialchars(mb_strimwidth($b['judul'], 0, 50, '…')) ?></span>
         </div>
 
-        <!-- Artikel Card -->
+        
         <article class="article-card">
 
-            <!-- Hero Image -->
+            
             <?php if ($thumb): ?>
                 <img src="<?= $thumb ?>" class="article-hero" alt="<?= htmlspecialchars($b['judul']) ?>">
             <?php else: ?>
@@ -549,17 +549,17 @@ function katMeta($kat, $kat_meta) {
 
             <div class="article-inner">
 
-                <!-- Kategori Badge -->
+                
                 <span class="article-kat-badge"
                       style="background:<?= $m['bg'] ?>;color:<?= $m['color'] ?>;">
                     <i class="fas fa-<?= $m['icon'] ?>" style="font-size:11px;"></i>
                     <?= htmlspecialchars($b['kategori']) ?>
                 </span>
 
-                <!-- Judul -->
+                
                 <h1 class="article-title"><?= htmlspecialchars($b['judul']) ?></h1>
 
-                <!-- Meta -->
+               
                 <div class="article-meta">
                     <div class="article-meta-item">
                         <div class="article-author-avatar">
@@ -583,12 +583,12 @@ function katMeta($kat, $kat_meta) {
                     </div>
                 </div>
 
-                <!-- Konten -->
+               
                 <div class="article-content">
-                    <?= $b['konten'] /* konten sudah HTML dari editor */ ?>
+                    <?= $b['konten']?>
                 </div>
 
-                <!-- Share Bar -->
+                
                 <?php
                 $current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']==='on' ? 'https' : 'http')
                     . '://' . $_SERVER['HTTP_HOST']
@@ -615,10 +615,10 @@ function katMeta($kat, $kat_meta) {
                     </button>
                 </div>
 
-            </div><!-- /.article-inner -->
+            </div>
         </article>
 
-        <!-- ===== BERITA TERKAIT ===== -->
+        
         <?php if (!empty($terkait)): ?>
         <section class="related-section">
             <div class="related-title">Berita Terkait</div>
@@ -653,10 +653,10 @@ function katMeta($kat, $kat_meta) {
 
     </main>
 
-    <!-- ===== SIDEBAR ===== -->
+    
     <aside class="detail-sidebar">
 
-        <!-- Paling Banyak Dibaca -->
+        
         <div class="sidebar-card">
             <div class="sidebar-header">
                 <div class="sidebar-header-icon"><i class="fas fa-fire"></i></div>
@@ -680,7 +680,7 @@ function katMeta($kat, $kat_meta) {
             <?php endif; ?>
         </div>
 
-        <!-- Kategori Singkat -->
+        
         <div class="sidebar-card">
             <div class="sidebar-header">
                 <div class="sidebar-header-icon"><i class="fas fa-tags"></i></div>
@@ -705,16 +705,16 @@ function katMeta($kat, $kat_meta) {
 
     </aside>
 
-</div><!-- /.detail-wrapper -->
+</div>
 
-<!-- Toast notif copy link -->
+
 <div class="toast-copy" id="toastCopy">
     <i class="fas fa-check-circle"></i> Link berhasil disalin!
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// Salin link ke clipboard
+
 function copyLink() {
     navigator.clipboard.writeText(window.location.href).then(() => {
         const t = document.getElementById('toastCopy');
@@ -723,7 +723,7 @@ function copyLink() {
     });
 }
 
-// Navbar scroll effect (sama dengan berita.php)
+
 window.addEventListener('scroll', () => {
     const nb = document.getElementById('navbar');
     if (nb) {

@@ -39,25 +39,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-      
-        $slug = strtolower(preg_replace('/[^a-z0-9]+/i', '-', $judul));
-        $slug = trim($slug, '-');
-        $slug_ori = $slug;
-        $i = 1;
-        while ($conn->query("SELECT id FROM berita WHERE slug='$slug' LIMIT 1")->num_rows > 0) {
-            $slug = $slug_ori . '-' . $i++;
-        }
 
-        $stmt = $conn->prepare("INSERT INTO berita (judul, slug, konten, thumbnail, kategori, penulis, status) VALUES (?,?,?,?,?,?,?)");
-        $stmt->bind_param('sssssss', $judul, $slug, $konten, $thumbnail, $kategori, $penulis, $status);
+    $stmt = $conn->prepare("INSERT INTO berita (judul, konten, thumbnail, kategori, penulis, status) VALUES (?,?,?,?,?,?)");
+    $stmt->bind_param('ssssss', $judul, $konten, $thumbnail, $kategori, $penulis, $status);
 
-        if ($stmt->execute()) {
-            header('Location: index.php?msg=tambah_berhasil');
-            exit;
-        } else {
-            $errors[] = 'Gagal menyimpan data: ' . $conn->error;
-        }
+    if ($stmt->execute()) {
+        header('Location: index.php?msg=tambah_berhasil');
+        exit;
+    } else {
+        $errors[] = 'Gagal menyimpan data: ' . $conn->error;
     }
+}
 }
 
 require_once '../dashboard.php';
@@ -309,6 +301,7 @@ select.form-control {
 .btn-primary:hover {
     background: var(--primary-dark);
     transform: translateY(-1px);
+    color: black;
     box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
 }
 
